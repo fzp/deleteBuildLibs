@@ -8,13 +8,10 @@ import hudson.model.listeners.RunListener;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class DeleteBuildLibsAction {
 
-    private static final Logger LOGGER = Logger.getLogger(DeleteBuildLibsAction.class.getName());
     /**
      * Listener.
      */
@@ -41,11 +38,11 @@ public class DeleteBuildLibsAction {
                     if (!renamingSucceeded) {
                         throw new IOException(rootDir + " is in use");
                     } else {
-                        LOGGER.log(Level.INFO, "{0}: {1} successfully deleted", new Object[]{this, rootDir});
+                        listener.getLogger().println(this.getClass().getName() + " : " + rootDir.toString() + " is successfully deleted");
                     }
                 }
-            }catch(IOException e){
-                LOGGER.log(Level.SEVERE, "{0}: IO exception. {1}", new Object[]{this, e});
+            } catch (IOException e) {
+                listener.getLogger().println(this.getClass().getName() + " : " + rootDir.toString() + " cannot be deleted : " + e.getMessage());
             }
 
 
